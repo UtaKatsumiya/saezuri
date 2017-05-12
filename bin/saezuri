@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+# coding: windows-31j
+
+$:.unshift File.expand_path '../lib', File.dirname(__FILE__)
+
+require "saezuri"
