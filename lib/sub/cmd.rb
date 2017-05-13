@@ -3,17 +3,23 @@
 
 
 class Cmd
+  attr_accessor :rtflag, :favflag, :watchflag, :snameflag, :post
   def initialize
     @argument = Argument.new
     token = Token.new(@argument.twitterid)
     @modified = token.login
+    @rtflag = @argument.rt
+    @favflag = @argument.fav
+	@watchflag = @argument.watch
+	@snameflag = @argument.sname
+	@post = @argument.posttext
   end
 
   def tweet
     if @argument.image && @argument.tweetid
-      @modified.update_with_media(@argument.text.dup.encode!("UTF-8"), open(@argument.image), in_reply_to_status_id: @argument.tweetid)
+      @modified.update_with_media(@argument.posttext.dup.encode!("UTF-8"), open(@argument.image), in_reply_to_status_id: @argument.tweetid)
     else
-      @modified.update(@argument.text.dup.encode!("UTF-8"), in_reply_to_status_id: @argument.tweetid)
+      @modified.update(@argument.posttext.dup.encode!("UTF-8"), in_reply_to_status_id: @argument.tweetid)
    end
   end
 
@@ -55,6 +61,9 @@ class Cmd
       @modified.favorite(@argument.tweetid)
     elsif @argument.rt
       @modified.retweet(@argument.tweetid)
+    else
+      str = "fav（-f）またはrt（-r）を指定してください"
+      puts str
     end
   end
 end
