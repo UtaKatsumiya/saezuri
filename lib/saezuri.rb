@@ -7,11 +7,11 @@ Dir[File.dirname(__FILE__) + '/sub/*.rb'].each {|file| require file }
 cmd = Cmd.new
 argument = Argument.new
 
-if argument.rt || argument.fav
+if cmd.rtflag || cmd.favflag
   cmd.favrt
-elsif argument.watch || argument.sname
+elsif cmd.watchflag || cmd.snameflag
   cmd.show_timeline
-elsif argument.text
+elsif cmd.post
   cmd.tweet
 else
   cmd.msg_check
